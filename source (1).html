@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+            <style></style>
+        </head>
+        <body>
+            
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Números Primos</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            position: relative;
+        }
+
+        #numero {
+            font-size: 5rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        #botones {
+            margin-top: 20px;
+        }
+
+        button {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        #estadisticas {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-align: right;
+            font-size: 1rem;
+        }
+
+        #mensajeError {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: red;
+            display: none;
+        }
+    </style>
+
+
+    <div id="estadisticas">
+        <p>Aciertos: <span id="aciertos">46</span></p>
+        <p>Fallos: <span id="fallos">0</span></p>
+        <p>Porcentaje de aciertos: <span id="winrate">100.00%</span></p>
+    </div>
+
+    <p id="numero">47</p>
+
+    <div id="botones">
+        <button onclick="verificar(true)">Es primo</button>
+        <button onclick="verificar(false)">No es primo</button>
+    </div>
+
+    <div id="mensajeError">🫵🤡</div>
+
+    <script>
+        let aciertos = 0;
+        let fallos = 0;
+        let numeroActual = 1;
+
+        function mostrarNumero() {
+            document.getElementById('numero').innerText = numeroActual;
+        }
+
+        function esPrimo(num) {
+            if (num <= 1) return false;
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) return false;
+            }
+            return true;
+        }
+
+        function mostrarMensajeError() {
+            const mensajeError = document.getElementById("mensajeError");
+            mensajeError.style.display = "block";
+            setTimeout(() => {
+                mensajeError.style.display = "none";
+            }, 1500); // Mostrar el mensaje por 1.5 segundos
+        }
+
+        function verificar(respuestaUsuario) {
+            const esPrimoNumero = esPrimo(numeroActual);
+            if (respuestaUsuario === esPrimoNumero) {
+                aciertos++;
+            } else {
+                fallos++;
+                mostrarMensajeError();
+            }
+
+            document.getElementById('aciertos').innerText = aciertos;
+            document.getElementById('fallos').innerText = fallos;
+            const totalIntentos = aciertos + fallos;
+            const winrate = ((aciertos / totalIntentos) * 100).toFixed(2);
+            document.getElementById('winrate').innerText = `${winrate}%`;
+
+            numeroActual++;
+            mostrarNumero();
+        }
+
+        mostrarNumero();
+    </script>
+
+
+
+            <script></script>
+        
+    
+</body>
